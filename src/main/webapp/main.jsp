@@ -137,9 +137,7 @@
 		</div>
 	</div>
 </div>
-<div region="south" style="height: 25px;padding: 5px;" align="center">
-	仅供学习  (2018.07-2018.09) 作者：大兔子
-</div>
+
 <div id="dlg" class="easyui-dialog" style="width: 400px;height:250px;padding: 10px 20px"
   closed="true" buttons="#dlg-buttons">
  	<form id="fm" method="post">
