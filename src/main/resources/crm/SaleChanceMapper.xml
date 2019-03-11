@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.test.crm.mapper.SaleChanceMapper">
+
+	<!-- 查询全部 -->
+	<select id="selectAll" parameterType="List"
+		resultType="com.test.crm.entity.SaleChance">
+		select 
+			*
+		from
+			t_sale_chance
+	</select>
+	
+	<select id="searchSaleChance" parameterType="List"
+		resultType="com.test.crm.entity.SaleChance">
+		select 
+			id, customerName, overView, linkMan, linkPhone, createMan, createTime, state 
+		from
+			t_sale_chance
+		where
+			customerName = #{customerName} <!-- or overView = #{overView} or createMan= #{createMan} -->
+	</select>
+	
+	<!-- 添加数据 -->
+	<insert id="addSaleChance"  parameterType="com.test.crm.entity.SaleChance">
+		insert INTO t_sale_chance 
+			(chanceSource, customerName, cgjl, overView, linkMan, 
+			linkPhone, description, createMan, createTime, assignMan, assignTime)
+		VALUES
+			(#{chanceSource, jdbcType=VARCHAR},#{customerName, jdbcType=VARCHAR},
+			#{cgjl, jdbcType=INTEGER},#{overView, jdbcType=VARCHAR},#{linkMan, jdbcType=VARCHAR},
+			#{linkPhone, jdbcType=VARCHAR},#{description, jdbcType=VARCHAR},#{createMan, jdbcType=VARCHAR},
+			#{createTime, jdbcType=TIMESTAMP},#{assignMan, jdbcType=VARCHAR},#{assignTime, jdbcType=TIMESTAMP})
+	</insert>
+	
+	<!-- 删除数据 -->
+	<delete id="delete"  parameterType="com.test.crm.entity.SaleChance">
+		delete from 
+			t_sale_chance 
+		where 
+			id = #{id}
+	</delete>
+	
+	<update id="update"  parameterType="com.test.crm.entity.SaleChance">
+		update 
+			t_sale_chance 
+		set 
+			chanceSource=#{chanceSource},customerName=#{customerName},cgjl=#{cgjl},overView=#{overView},linkMan=#{linkMan},
+			linkPhone=#{linkPhone},createTime=#{createTime},assignMan=#{assignMan},assignTime=#{assignTime} 
+		where 
+			id = #{id}
+	</update>
+	
+	<!-- 更新为已分配状态 -->
+	<update id="updateState"  parameterType="com.test.crm.entity.SaleChance">
+		update 
+			t_sale_chance 
+		set 
+			state=1
+		where 
+			id = #{id}
+	</update>
+	
+</mapper>

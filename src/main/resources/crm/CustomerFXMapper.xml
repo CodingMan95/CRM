@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.test.crm.mapper.CutomerFXMapper">
+
+	<!-- 查询客户所做贡献 -->
+	<select id="findCutomerGx" parameterType="String"
+		resultType="com.test.crm.entity.CustomerInfo">
+		select 
+			a.khno id,a.name name,SUM(b.sum) sum
+		from 
+			t_customer a,t_order_details b 
+		where
+			b.orderId = a.id 
+		GROUP BY 
+			b.orderId
+	</select>
+	
+	
+	<select id="findCutomerGc" parameterType="String"
+		resultType="com.test.crm.entity.Customer">
+		select 
+			level,SUM(1) as  customerNum
+		from 
+			t_customer 
+		GROUP BY level
+	</select>
+	
+</mapper>

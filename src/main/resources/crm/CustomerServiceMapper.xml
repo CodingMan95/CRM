@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.test.crm.mapper.CustomerServiceMapper">
+
+	<!-- 查询新创建客户服务 -->
+	<select id="selectByState" parameterType="String"
+		resultType="com.test.crm.entity.CustomerService">
+		select 
+			*
+		from
+			t_customer_service
+		where
+			state = #{state}
+	</select>
+	
+	<!-- 添加数据 -->
+	<insert id="addCustomerService"  parameterType="com.test.crm.entity.CustomerService">
+		insert INTO t_customer_service 
+			(serveType, customer, overView, servicerequest, createPeople, createTime, state)
+		VALUES
+			(#{serveType, jdbcType=VARCHAR},#{customer, jdbcType=VARCHAR},
+			#{overView, jdbcType=VARCHAR},#{servicerequest, jdbcType=VARCHAR},#{createPeople, jdbcType=VARCHAR},
+			#{createTime, jdbcType=TIMESTAMP}, "新创建")
+	</insert>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteCustomerService"  parameterType="com.test.crm.entity.CustomerService">
+		delete from 
+			t_customer_service 
+		where 
+			id = #{id}
+	</delete>
+	
+	<update id="updateCustomerService"  parameterType="com.test.crm.entity.CustomerService">
+		update 
+			t_customer_service 
+		set 
+			serveType=#{serveType},customer=#{customer},overView=#{overView},servicerequest=#{servicerequest},
+			createPeople=#{createPeople},createTime=#{createTime},assigner=#{assigner},assignTime=#{assignTime},state=#{state},
+			serviceProce=#{serviceProce},serviceProceTime=#{serviceProceTime},serviceProceResult=#{serviceProceResult},myd=#{myd},
+			serviceProcePeople=#{serviceProcePeople}
+		where 
+			id = #{id}
+	</update>
+	
+	
+	
+</mapper>

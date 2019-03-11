@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.test.crm.mapper.CustomerMapper">
+
+	<!-- 查询全部 -->
+	<select id="selectAll" parameterType="List"
+		resultType="com.test.crm.entity.Customer">
+		select
+			*
+		from
+			t_customer
+	</select>
+
+	<select id="findDataDic" parameterType="List"
+		resultType="com.test.crm.entity.DataDic">
+		select
+			*
+		from
+			t_datadic
+		where
+			dataDicName = #{dataDicName}
+	</select>
+
+	<!-- 添加数据 -->
+	<insert id="addCustomer" parameterType="com.test.crm.entity.Customer">
+		insert INTO t_customer
+			(id,khno,name,area,cusManager,level,myd,xyd,address,postCode,phone,fax,webSite,yyzzzch,fr,zczj,
+			nyye,khyh,khzh,dsdjh,gsdjh,state)
+		VALUES
+			(#{id},#{khno},#{name},#{area},#{cusManager},#{cusManager},#{myd},
+			#{xyd},#{address},#{postCode},#{phone},#{fax},#{webSite},#{yyzzzch},#{fr},#{zczj},
+			#{nyye},#{khyh},#{khzh},#{dsdjh},#{gsdjh},0)
+	</insert>
+
+	<!-- 删除数据 -->
+	<delete id="delete" parameterType="com.test.crm.entity.Customer">
+		delete from
+			t_customer
+		where
+			id = #{id}
+	</delete>
+
+	<update id="update" parameterType="com.test.crm.entity.Customer">
+		update
+			t_customer
+		set
+			name=#{name},area=#{area},cusManager=#{cusManager},level=#{level},myd=#{myd},xyd=#{xyd},address=#{address},
+			postCode=#{postCode},phone=#{phone},fax=#{fax},webSite=#{webSite},yyzzzch=#{yyzzzch},fr=#{fr},zczj=#{zczj},
+			nyye=#{nyye},khyh=#{khyh},khzh=#{khzh},dsdjh=#{dsdjh},gsdjh=#{gsdjh}
+		where
+			id = #{id}
+	</update>
+
+	<!-- 通过id查找用户信息 -->
+	<select id="findById" parameterType="int"
+		resultType="com.test.crm.entity.Customer">
+		select 
+			* 
+		from 
+			t_customer
+		where 
+			id = #{id}
+	</select>
+	
+	<!-- 查询所有流失客户 -->
+	<select id="selectLossCustomer" parameterType="com.test.crm.entity.CustomerLoss"
+		resultType="com.test.crm.entity.CustomerLoss">
+		select 
+			* 
+		from 
+			t_customer_loss
+	</select>
+	
+	<!-- 通过id查询 -->
+	<select id="selectCustomerReprieveById" parameterType="int"
+		resultType="com.test.crm.entity.CustomerReprieve">
+		select 
+			* 
+		from 
+			t_customer_reprieve 
+		where 
+			lossId = #{lossId}
+	</select>
+	
+	<select id="findCustomerLossById" parameterType="int"
+		resultType="com.test.crm.entity.CustomerLoss">
+		select 
+			* 
+		from 
+			t_customer_loss
+		where 
+			id = #{id}
+	</select>
+	
+	<!--  添加 -->
+	<insert id="addCustomerReprieve" parameterType="com.test.crm.entity.CustomerReprieve">
+		insert into 
+			t_customer_reprieve(lossId, measure) 
+		values
+			(#{lossId}, #{measure})
+	</insert>
+	
+	<update id="updateCustomerReprieve" parameterType="com.test.crm.entity.CustomerReprieve">
+		update 
+			t_customer_reprieve
+		set
+			lossId = #{lossId}, measure = #{measure}
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteCustomerReprieve"  parameterType="com.test.crm.entity.CustomerReprieve">
+		delete from
+			t_customer_reprieve
+		where
+			id = #{id}
+	</delete>
+	
+	
+	<update id="updateCustomerLossState" parameterType="com.test.crm.entity.CustomerLoss">
+		update 
+			t_customer_loss
+		set
+			state = 1 , confirmLossTime = #{confirmLossTime}
+		where
+			id = #{id}
+	</update>
+	
+</mapper>

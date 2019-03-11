@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.test.crm.mapper.UserMapper">
+
+	<!-- 通过用户名查询用户  -->
+	<select id="selectUserByName" parameterType="String"
+		resultType="com.test.crm.entity.User">
+		SELECT 
+			*
+		FROM 
+			t_user 
+		WHERE 
+			userName = #{userName} 
+	</select>
+	
+	<select id="selectLimit" parameterType="String"
+		resultType="com.test.crm.entity.User">
+		SELECT 
+			trueName
+		FROM 
+			t_user 
+		WHERE 
+			roleName = "客户经理"
+	</select>
+	
+ 	<update id="modifyPassword"  parameterType="com.test.crm.entity.User">
+		update
+			t_user
+		set
+			password = #{newPassword}
+		where
+			userName = #{userName} and password = #{password}
+	</update> 
+	
+	<select id="findAllUser" parameterType="String"
+		resultType="com.test.crm.entity.User">
+		SELECT 
+			*
+		FROM 
+			t_user
+	</select>
+	
+	<update id="updateUser"  parameterType="com.test.crm.entity.User">
+		update
+			t_user
+		set
+			userName = #{userName}, password = #{password},trueName = #{trueName}, email = #{email},
+			phone = #{phone}, roleName = #{roleName}
+		where
+			id = #{id}
+	</update>
+	
+	<insert id="addUser"  parameterType="com.test.crm.entity.User">
+		insert into
+			t_user(userName, password, trueName, email, phone, roleName)
+		values
+			(#{userName}, #{password}, #{trueName}, #{email}, #{phone}, #{roleName})
+	</insert>
+	
+	<delete id="deleteUser" parameterType="com.test.crm.entity.User">
+		delete from
+			t_user
+		where
+			id = #{id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.test.crm.mapper.OrderMapper">
+
+	<!-- 通过客户id查询客户全部订单 -->
+	<select id="selectOrder" parameterType="List"
+		resultType="com.test.crm.entity.Order">
+		select 
+			* 
+		from 
+			t_customer_order
+		where 
+			cusId = #{cusId}
+	</select>
+	
+	<!-- 通过订单id查询某一指定订单 -->
+	<select id="selectOrderById" parameterType="com.test.crm.entity.Order"
+		resultType="com.test.crm.entity.Order">
+		select 
+			* 
+		from 
+			t_customer_order
+		where 
+			id = #{id}
+	</select>
+	
+	<!-- 通过订单id计算总价 -->
+	<select id="getTotalPrice" parameterType="int"
+		resultType="float">
+		select 
+			SUM(sum) 
+		from
+			t_order_details  
+		where 
+			orderId = #{orderId} 
+		GROUP BY orderId
+	</select>
+	
+	<!-- 通过订单id查询订单 -->
+	<select id="getOrderDetails" parameterType="int"
+		resultType="com.test.crm.entity.OrderDetails">
+		select 
+			*
+		from 
+			t_order_details  
+		where
+			orderId = #{orderId} 
+	</select>
+	
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.test.crm.mapper.ContactMapper">
+	
+	<!-- 查询交往记录 -->
+	<select id="selectContact" parameterType="List"
+		resultType="com.test.crm.entity.Contact">
+		select 
+			* 
+		from 
+			t_customer_contact 
+		where 
+			cusId = #{cusId}
+	</select>
+	
+	<!-- 添加交往记录 -->
+	<insert id="addContact" parameterType="com.test.crm.entity.Contact">
+		INSERT INTO t_customer_contact 
+			(cusId, contactTime, address, overView)
+		VALUES
+			(#{cusId},#{contactTime},#{address},#{overView})
+	</insert>
+	
+	<!-- 删除交往记录 -->
+	<delete id="deleteContact" parameterType="com.test.crm.entity.Contact">
+		delete from
+			t_customer_contact 
+		where
+			id = #{id}
+	</delete>
+
+	<!-- 更新交往记录-->
+	<update id="updateContact" parameterType="com.test.crm.entity.Contact">
+		update
+			t_customer_contact 
+		set
+			contactTime=#{contactTime,jdbcType=TIMESTAMP}, address=#{address}, overView=#{overView}
+		where
+			id = #{id}
+	</update>
+	
+</mapper>
